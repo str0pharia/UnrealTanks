@@ -16,7 +16,7 @@ public:
 	// Sets default values for this pawn's properties
 	ATank();
 	
-	void AimAt(FVector HitLocation, float LaunchSpeed);
+	void AimAt(FVector HitLocation);
 
 	UFUNCTION(BlueprintCallable,Category = Setup)
 	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
