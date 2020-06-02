@@ -41,7 +41,7 @@ void ATank::AimAt(FVector HitLocation) {
 }
 
 
-void ATank::SetBarrelReference(UStaticMeshComponent* BarrelToSet) {
+void ATank::SetBarrelReference(UTankBarrel* BarrelToSet) {
 
 
 	//UE_LOG(LogTemp,Warning,TEXT("%s aiming at %s"),*GetName(),*HitLocation.ToString());
