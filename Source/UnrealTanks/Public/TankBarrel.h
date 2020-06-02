@@ -16,7 +16,7 @@ class UNREALTANKS_API UTankBarrel : public UStaticMeshComponent
 	
 public:
 
-	void Elevate(float degrees);
+	void Elevate(float RelativeSpeed);
 
 
 private:

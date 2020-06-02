@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
+#include "TankAimingComponent.h"
 #include "Kismet/GameplayStatics.h" 
 #include "TankBarrel.h"
-#include "TankAimingComponent.h"
+
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
@@ -65,7 +65,11 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		auto AimDirection = Velocity.GetSafeNormal();
 		//auto TankName = GetOwner()->GetName();
 		//UE_LOG(LogTemp,Warning,TEXT("%s is aiming at %s"),*TankName, *AimDirection.ToString());
+		UE_LOG(LogTemp,Warning,TEXT("aim solution found"));
+
 		MoveBarrelTowards(AimDirection);
+	} else {
+		UE_LOG(LogTemp,Warning,TEXT("aim solution _NOT_ found"));
 	}
 	
 }
@@ -76,7 +80,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 
-	Barrel->Elevate(5);
+	Barrel->Elevate(DeltaRotator.Pitch);
 }
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet) {
