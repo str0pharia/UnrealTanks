@@ -1,7 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "TankAimingComponent.h"
 #include "Tank.h"
+#include "TankAimingComponent.h"
+#include "TankBarrel.h"
+#include "TankTurret.h"
 
 // Sets default values
 ATank::ATank()
@@ -41,5 +43,13 @@ void ATank::SetBarrelReference(UTankBarrel* BarrelToSet) {
 	//UE_LOG(LogTemp,Warning,TEXT("%s aiming at %s"),*GetName(),*HitLocation.ToString());
 
 	TankAimingComponent->SetBarrelReference(BarrelToSet);
+}
+
+void ATank::SetTurretReference(UTankTurret* TurretToSet) {
+
+
+	//UE_LOG(LogTemp,Warning,TEXT("%s aiming at %s"),*GetName(),*HitLocation.ToString());
+
+	TankAimingComponent->SetTurretReference(TurretToSet);
 }
 

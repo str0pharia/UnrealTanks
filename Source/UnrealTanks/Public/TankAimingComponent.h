@@ -6,7 +6,9 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
+
 class UTankBarrel;
+class UTankTurret;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class UNREALTANKS_API UTankAimingComponent : public UActorComponent
@@ -21,7 +23,10 @@ public:
 
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
+	void SetTurretReference(UTankTurret* TurretToSet);
+
 	void MoveBarrelTowards(FVector AimDirection);
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -35,4 +40,6 @@ private:
 	bool bWantsBeginPlay = true;
 
 	UTankBarrel* Barrel = nullptr;
+
+	UTankTurret* Turret = nullptr;
 };
