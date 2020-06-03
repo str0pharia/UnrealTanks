@@ -11,7 +11,7 @@ UTankAimingComponent::UTankAimingComponent()
 	// off to improve performance if you don't need them.
 	
 	bWantsBeginPlay = true;
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 
 
 	// ...
@@ -67,13 +67,10 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		auto AimDirection = Velocity.GetSafeNormal();
 		//auto TankName = GetOwner()->GetName();
 		//UE_LOG(LogTemp,Warning,TEXT("%s is aiming at %s"),*TankName, *AimDirection.ToString());
-		UE_LOG(LogTemp,Warning,TEXT("aim solution found"));
+		//UE_LOG(LogTemp,Warning,TEXT("aim solution found"));
 
 		MoveBarrelTowards(AimDirection);
-	} else {
-		UE_LOG(LogTemp,Warning,TEXT("aim solution _NOT_ found"));
-	}
-	
+	} 
 }
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
