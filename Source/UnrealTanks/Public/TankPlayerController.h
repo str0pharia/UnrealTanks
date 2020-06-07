@@ -16,6 +16,7 @@ class UNREALTANKS_API ATankPlayerController : public APlayerController
 
 public:
 
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 	ATank* GetControlledTank() const;
 
 	virtual void BeginPlay() override;
