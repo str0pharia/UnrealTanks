@@ -25,6 +25,8 @@ class UNREALTANKS_API UTankAimingComponent : public UActorComponent
 
 public:	
 
+	UTankAimingComponent();
+
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
 
@@ -43,9 +45,15 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Firing")
 	float LaunchSpeed = 10000.f;
 
+
+
 private:
 
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
 	void MoveBarrelTowards(FVector AimDirection);
+
+	bool IsBarrelMoving();
 
 	UTankBarrel* Barrel = nullptr;
 
@@ -58,6 +66,8 @@ private:
 	float ReloadTimeSeconds = 3.f;
 
 	double LastFireTime = 0;
+
+	FVector _AimDirection;
 
 
 };
