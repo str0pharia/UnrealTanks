@@ -14,7 +14,7 @@ enum class EFiringState : uint8
 	Locked
 };
 
-class UTankBarrel;
+class UTankBarrel;	
 class UTankTurret;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -23,14 +23,9 @@ class UNREALTANKS_API UTankAimingComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	// Sets default values for this component's properties
-	UTankAimingComponent();
 
-	void AimAt(FVector HitLocation, float LaunchSpeed);
 
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
-
-	void SetTurretReference(UTankTurret* TurretToSet);
+	void AimAt(FVector HitLocation);
 
 	void MoveBarrelTowards(FVector AimDirection);
 
@@ -38,12 +33,14 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-	UPROPERTY(BlueprintReadOnly, Category = "State")
-	EFiringState FiringState = EFiringState::Reloading;
+	UFUNCTION(BlueprintCallable)
+	void Initialise(UTankBarrel* TankBarrel, UTankTurret* TankTurret);
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	UPROPERTY(BlueprintReadOnly, Category = "State")
+	EFiringState FiringState = EFiringState::Aiming;
+
+	UPROPERTY(EditAnywhere, Category = "Firing")
+	float LaunchSpeed = 10000.f;
 
 private:
 

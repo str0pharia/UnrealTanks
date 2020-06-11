@@ -17,11 +17,11 @@ class UNREALTANKS_API UTankTrack : public UStaticMeshComponent
 
 public:
 
-	UFUNCTION(BlueprintCallable, Category = Input)
+	UFUNCTION(BlueprintCallable, Category = "Input")
 	void SetThrottle(float throttle);
 
 	UPROPERTY(EditDefaultsOnly)
-	float TrackMaxDrivingForce = 400000;
+	float TrackMaxDrivingForce = 40000000;
 
 
 };

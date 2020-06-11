@@ -4,19 +4,6 @@
 #include "TankBarrel.h"
 #include "TankTurret.h"
 
-// Sets default values for this component's properties
-UTankAimingComponent::UTankAimingComponent()
-{
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	
-	bWantsBeginPlay = true;
-	PrimaryComponentTick.bCanEverTick = false;
-
-
-	// ...
-}
-
 
 // Called when the game starts
 void UTankAimingComponent::BeginPlay()
@@ -24,27 +11,25 @@ void UTankAimingComponent::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
+
+
 	
 }
 
-
-// Called every frame
-void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
+void UTankAimingComponent::Initialise(UTankBarrel* TankBarrel, UTankTurret* TankTurret) {
+    if ( !ensure(TankBarrel) || !ensure(TankTurret) ) {return;}
+	Barrel = TankBarrel;
+	Turret = TankTurret;
 }
 
-void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) 
+void UTankAimingComponent::AimAt(FVector HitLocation) 
 {
 	//auto TankName = GetOwner()->GetName();
 	//auto BarrelLocation = Barrel->GetComponentLocation();
 	//UE_LOG(LogTemp,Warning,TEXT("%s aiming at %s"),*TankName,*HitLocation.ToString());
 
 
-	if (!Turret) { return; }
-	if (!Barrel) { return; }
+	if ( !ensure(Barrel) || !ensure(Turret) ) { return; }
 
 
 	FVector Velocity(0);
@@ -75,6 +60,8 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 
+	if ( !ensure(Barrel) || !ensure(Turret) ) { return; }
+
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
@@ -85,13 +72,3 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 }
 
 
-
-void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet) {
-
-	Barrel = BarrelToSet;
-}
-
-void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet) {
-
-	Turret = TurretToSet;
-}
