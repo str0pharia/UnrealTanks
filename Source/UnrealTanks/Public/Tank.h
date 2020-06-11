@@ -16,31 +16,8 @@ class UNREALTANKS_API ATank : public APawn
 {
 	GENERATED_BODY()
 
-public:
-
-	UFUNCTION(BlueprintCallable, Category = "Firing")
-	void Fire();
-
-protected:
-
-	UPROPERTY(BlueprintReadOnly)
-	UTankMovementComponent* TankMovementComponent = nullptr;
-
 private:
 
 	ATank();
-
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-	UPROPERTY(EditAnywhere, Category = "Setup")
-	TSubclassOf<AProjectile> ProjectileBlueprint;
-
-	UPROPERTY(EditAnywhere, Category = "Setup")
-	float ReloadTimeSeconds = 3.f;
-
-	double LastFireTime = 0;
-
-	UTankBarrel* Barrel = nullptr;
 
 };

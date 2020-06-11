@@ -16,6 +16,7 @@ enum class EFiringState : uint8
 
 class UTankBarrel;	
 class UTankTurret;
+class AProjectile;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class UNREALTANKS_API UTankAimingComponent : public UActorComponent
@@ -24,17 +25,17 @@ class UNREALTANKS_API UTankAimingComponent : public UActorComponent
 
 public:	
 
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	void Fire();
+
+	UFUNCTION(BlueprintCallable)
+	void Initialise(UTankBarrel* TankBarrel, UTankTurret* TankTurret);
 
 	void AimAt(FVector HitLocation);
-
-	void MoveBarrelTowards(FVector AimDirection);
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-
-	UFUNCTION(BlueprintCallable)
-	void Initialise(UTankBarrel* TankBarrel, UTankTurret* TankTurret);
 
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringState FiringState = EFiringState::Aiming;
@@ -44,11 +45,19 @@ protected:
 
 private:
 
-	bool bWantsBeginPlay = true;
+	void MoveBarrelTowards(FVector AimDirection);
 
 	UTankBarrel* Barrel = nullptr;
 
 	UTankTurret* Turret = nullptr;
+
+	UPROPERTY(EditAnywhere, Category = "Setup")
+	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	UPROPERTY(EditAnywhere, Category = "Setup")
+	float ReloadTimeSeconds = 3.f;
+
+	double LastFireTime = 0;
 
 
 };

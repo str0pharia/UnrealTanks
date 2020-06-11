@@ -3,6 +3,7 @@
 #include "Kismet/GameplayStatics.h" 
 #include "TankBarrel.h"
 #include "TankTurret.h"
+#include "Projectile.h"
 
 
 // Called when the game starts
@@ -10,10 +11,6 @@ void UTankAimingComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
-
-
-	
 }
 
 void UTankAimingComponent::Initialise(UTankBarrel* TankBarrel, UTankTurret* TankTurret) {
@@ -24,10 +21,6 @@ void UTankAimingComponent::Initialise(UTankBarrel* TankBarrel, UTankTurret* Tank
 
 void UTankAimingComponent::AimAt(FVector HitLocation) 
 {
-	//auto TankName = GetOwner()->GetName();
-	//auto BarrelLocation = Barrel->GetComponentLocation();
-	//UE_LOG(LogTemp,Warning,TEXT("%s aiming at %s"),*TankName,*HitLocation.ToString());
-
 
 	if ( !ensure(Barrel) || !ensure(Turret) ) { return; }
 
@@ -50,9 +43,6 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	if ( bHaveAimSolution )
 	{
 		auto AimDirection = Velocity.GetSafeNormal();
-		//auto TankName = GetOwner()->GetName();
-		//UE_LOG(LogTemp,Warning,TEXT("%s is aiming at %s"),*TankName, *AimDirection.ToString());
-		//UE_LOG(LogTemp,Warning,TEXT("aim solution found"));
 
 		MoveBarrelTowards(AimDirection);
 	} 
@@ -71,4 +61,19 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 
 }
 
+void UTankAimingComponent::Fire() {
+
+		bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeSeconds;
+		if (ensure(Barrel) && ensure(ProjectileBlueprint) && isReloaded) {
+			auto Projectile = GetWorld()->SpawnActor<AProjectile>(
+				ProjectileBlueprint,
+				Barrel->GetSocketLocation(FName("Projectile")),
+				Barrel->GetSocketRotation(FName("Projectile"))
+			);
+
+			Projectile->LaunchProjectile(LaunchSpeed);
+			LastFireTime = FPlatformTime::Seconds();
+		}
+
+}
 
