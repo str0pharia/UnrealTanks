@@ -50,13 +50,10 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const {
     if ( GetLookDirection(ScreenLocation,LookDirection)) 
     {
         //UE_LOG(LogTemp,Warning,TEXT("Look Direction = %s"),*LookDirection.ToString());
-        if ( GetLookVectorHitLocation(LookDirection,HitLocation) ) {
-
-            UE_LOG(LogTemp,Warning,TEXT("Hit Location = %s"),*HitLocation.ToString())
-        }
+        return GetLookVectorHitLocation(LookDirection,HitLocation);
     }
 
-    return true;
+    return false;
 }
 
 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const {
