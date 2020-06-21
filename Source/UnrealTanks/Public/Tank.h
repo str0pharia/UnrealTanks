@@ -19,13 +19,16 @@ class UNREALTANKS_API ATank : public APawn
 private:
 
 	ATank();
-
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	int32 StartingHealth = 100;
+
+	UPROPERTY(VisibleAnywhere, Category = "Health")
 	int32 Health = StartingHealth;
 
 public:
 
-	int32 GetHealth();
+	UFUNCTION(BlueprintPure)
+	float GetPercentageHealth();
 
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController * EventInstigator, AActor * DamageCauser) override;
 

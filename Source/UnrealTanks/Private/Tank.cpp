@@ -18,17 +18,14 @@ float ATank::TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEv
 
 
 	int32 DamagePoints = FPlatformMath::RoundToInt(DamageAmount);
-	auto DamageToApply = FMath::Clamp(DamagePoints, 0, GetHealth());
+	auto DamageToApply = FMath::Clamp(DamagePoints, 0, Health);
 
 	Health -= DamageToApply;
 
 	return DamageToApply;
 }
 
-
-int32 ATank::GetHealth() {
-
-	return Health;
+float ATank::GetPercentageHealth() {
+	return (float)Health/(float)StartingHealth;
 }
-
 
