@@ -7,6 +7,8 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Projectile.generated.h"
 
+class UParticleSystemComponent;
+
 UCLASS()
 class UNREALTANKS_API AProjectile : public AActor
 {
@@ -26,9 +28,18 @@ private:
 
 	UProjectileMovementComponent* ProjectileMovement = nullptr;
 
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UStaticMeshComponent* CollisionMesh = nullptr;
 
-public:	
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UParticleSystemComponent* LaunchBlast = nullptr;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UParticleSystemComponent* ImpactBlast = nullptr;
+
+
+
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	//virtual void Tick(float DeltaTime) override;
 
 };

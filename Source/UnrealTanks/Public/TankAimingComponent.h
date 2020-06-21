@@ -53,7 +53,7 @@ protected:
 
 
 	UPROPERTY(BlueprintReadOnly, Category = "Firing")
-	int RoundsLeft = 3;
+	int32 RoundsLeft = 3;
 private:
 
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
