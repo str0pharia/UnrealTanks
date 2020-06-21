@@ -23,6 +23,8 @@ public:
 	
 	void LaunchProjectile(float speed);
 
+	void OnTimerExpire();
+
 private:
 	// Called when the game starts or when spawned
 	UFUNCTION()
@@ -42,6 +44,11 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UParticleSystemComponent* ImpactBlast = nullptr;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float ProjectileDamage;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float DestroyDelay = 1.0f;
 
 	// Called every frame
 	//virtual void Tick(float DeltaTime) override;

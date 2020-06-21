@@ -20,4 +20,13 @@ private:
 
 	ATank();
 
+	int32 StartingHealth = 100;
+	int32 Health = StartingHealth;
+
+public:
+
+	int32 GetHealth();
+
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController * EventInstigator, AActor * DamageCauser) override;
+
 };

@@ -14,5 +14,21 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 }
 
+float ATank::TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController * EventInstigator, AActor * DamageCauser) {
+
+
+	int32 DamagePoints = FPlatformMath::RoundToInt(DamageAmount);
+	auto DamageToApply = FMath::Clamp(DamagePoints, 0, GetHealth());
+
+	Health -= DamageToApply;
+
+	return DamageToApply;
+}
+
+
+int32 ATank::GetHealth() {
+
+	return Health;
+}
 
 
