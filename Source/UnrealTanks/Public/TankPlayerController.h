@@ -20,6 +20,8 @@ public:
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaTime) override;
+
+	virtual void SetPawn(APawn* InPawn) override;
 	
 	void AimTowardsCrosshair();
 
@@ -44,4 +46,7 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float LineTraceRange = 1000000;
+
+	UFUNCTION()
+	void OnTankDestroyed();
 };

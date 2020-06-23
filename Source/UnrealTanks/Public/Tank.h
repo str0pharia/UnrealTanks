@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankDelegate);
+
 class UTankTurret;
 class UTankBarrel;
 class UTankMovementComponent;
@@ -19,13 +21,17 @@ class UNREALTANKS_API ATank : public APawn
 private:
 
 	ATank();
+
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	int32 StartingHealth = 100;
 
 	UPROPERTY(VisibleAnywhere, Category = "Health")
 	int32 Health = StartingHealth;
+	
 
 public:
+
+	FTankDelegate OnDeath;
 
 	UFUNCTION(BlueprintPure)
 	float GetPercentageHealth();

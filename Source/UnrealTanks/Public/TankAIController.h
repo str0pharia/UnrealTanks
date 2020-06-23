@@ -13,7 +13,6 @@ UCLASS()
 class UNREALTANKS_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
-	
 
 protected:
 
@@ -26,4 +25,8 @@ private:
 
 	virtual void Tick(float DeltaTime) override;
 
+	virtual void SetPawn(APawn* InPawn) override;
+
+	UFUNCTION()
+	void OnTankDestroyed();
 };
