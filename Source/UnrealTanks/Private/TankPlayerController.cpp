@@ -4,6 +4,7 @@
 #include "TankPlayerController.h"
 #include "Tank.h"
 
+
 void ATankPlayerController::BeginPlay() {
     Super::BeginPlay();
     
@@ -35,8 +36,8 @@ void ATankPlayerController::SetPawn(APawn* InPawn)
 
 void ATankPlayerController::OnTankDestroyed() 
 {
-
-    UE_LOG(LogTemp,Warning,TEXT("Tank Destroyed"));
+    UE_LOG(LogTemp,Warning,TEXT("Player Tank Destroyed"));
+    StartSpectatingOnly();
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -52,7 +53,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 	if (!ensure(AimingComponent)){return;}
     FVector HitLocation;
     if (GetSightRayHitLocation(HitLocation)) {
-        AimingComponent->AimAt(HitLocation);
+        AimingComponent->MoveCharacerTowards(HitLocation);
     }
 }
 
@@ -65,7 +66,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const {
     FVector LookDirection;
     if ( GetLookDirection(ScreenLocation,LookDirection)) 
     {
-        //UE_LOG(LogTemp,Warning,TEXT("Look Direction = %s"),*LookDirection.ToString());
+        UE_LOG(LogTemp,Warning,TEXT("Look Direction = %s"),*LookDirection.ToString());
         return GetLookVectorHitLocation(LookDirection,HitLocation);
     }
 
